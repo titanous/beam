@@ -3,7 +3,8 @@
 Beam is a protocol and library for service-oriented communication,
 with an emphasis on real-world patterns, simplicity and not reinventing the wheel.
 
-It was created by Solomon Hykes and is maintained by the Docker team at dotCloud, inc.
+It was created by Solomon Hykes and is maintained by Guillaume Charmes and
+the Docker team at dotCloud, inc.
 
 ## Design principles
 
