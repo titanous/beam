@@ -24,9 +24,21 @@ type Streamer interface {
 	// If the stream hasn't been open for read access before, it is advertised as such to the peer.
 	OpenRead(name string) io.Reader
 
+	// ReadFrom opens a read-only interface on the stream <name>, and copies data
+	// to that interface from <src> until EOF or error.
+	// The return value n is the number of bytes read.
+	// Any error encountered during the write is also returned.
+	ReadFrom(src io.Reader, name string) (int64, error)
+
 	// OpenWrite returns a write-only interface to send data on the stream <name>.
 	// If the stream hasn't been open for write access before, it is advertised as such to the peer.
 	OpenWrite(name string) io.Writer
+
+	// WriteTo opens a write-only interface on the stream <name>, and copies data
+	// from that interface to <dst> until there's no more data to write or when an error occurs.
+	// The return value n is the number of bytes written.
+	// Any error encountered during the write is also returned.
+	WriteTo(dst io.Writer, name string) (int64, error)
 
 	// OpenReadWrite returns a read-write interface to send and receive on the stream <name>.
 	// If the stream hasn't been open for read or write access before, it is advertised as such to the peer.
