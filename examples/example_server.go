@@ -27,7 +27,7 @@ func RunServer() error {
 
 func JobHello(name string, args []string, env map[string]string, streams beam.Streamer, db beam.DB) error {
 	 // FIXME: can we get away with not returning errors? Maybe the server just kills the handler on error?
-	stdout := streams.Open("stdout", beam.O_WRONLY)
+	stdout := streams.OpenWrite("stdout")
 	fmt.Fprintf(stdout, "Hello, %s!", strings.Join(args, " "))
 	return nil
 }
@@ -49,3 +49,4 @@ func JobExec(name string, args []string, env map[string]string, streams beam.Str
 	p.Stdin = streams.OpenRead("stdin")
 	p.Stdout = streams.OpenWrite("stdout")
 	p.Stderr = streams.OpenWrite("stderr")
+}
