@@ -47,4 +47,10 @@ type Streamer interface {
 	// Close closes the stream <name>. All future reads will return io.EOF, and writes will return
 	// io.ErrClosedPipe
 	Close(name string)
+
+	// Shutdown waits until all streams with read access are closed and
+	// all WriteTo and ReadFrom operations are completed,
+	// then it stops accepting remote messages for its streams,
+	// then it returns.
+	Shutdown() error
 }
