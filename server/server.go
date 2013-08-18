@@ -8,7 +8,7 @@
 package client
 
 import (
-	beam "github.com/dotcloud/beam/common"
+	"github.com/dotcloud/beam"
 )
 
 
