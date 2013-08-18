@@ -50,3 +50,9 @@ type JobHandler func(name string, args []string, env map[string]string, streams 
 func (srv *Server) ListenAndServe(proto, addr string) error {
 
 }
+
+// Serve accepts incoming Beam connections on the listener l, and then
+// serves requests on them.
+func (srv *Server) Serve(l net.Listener) error {
+
+}
