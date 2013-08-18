@@ -27,6 +27,10 @@ func New() srv *Server {
 func (srv *Server) RegisterJob(name string, h JobHandler) {
 }
 
+// ServeJob is the server's default job handler. It is called every time a new job is created.
+func (srv *Server) ServeJob(name string, args []string, env map[string]string, streams beam.Streamer, db beam.DB) error {
+}
+
 // A JobHandler is a function which can be invoked as a job by beam clients.
 // The API for invoking jobs resembles that of unix processes:
 //  - A job is invoked under a certain <name>.
