@@ -10,7 +10,8 @@
 package common
 
 import (
-	redis "github.com/dotcloud/go-redis-server"
+	_ "github.com/dotcloud/go-redis-server"
+	"io"
 )
 
 
