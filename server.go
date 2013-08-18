@@ -49,3 +49,8 @@ func (srv *Server) ListenAndServe(proto, addr string) error {
 func (srv *Server) Serve(l net.Listener) error {
 	return nil
 }
+
+// Serve serves request on the connection conn.
+func (srv *Server) ServeConn(conn net.Conn) error {
+	return nil
+}
