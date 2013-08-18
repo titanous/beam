@@ -45,8 +45,8 @@ func (srv *Server) ServeJob(name string, args []string, env map[string]string, s
 type JobHandler func(name string, args []string, env map[string]string, streams beam.Streamer, db beam.DB) error
 
 
-// ListenAndSerce listens on the address <addr> at protocol <proto> and then
-// handles incoming requests on incoming following the beam protocol.
+// ListenAndServe listens on the address <addr> at protocol <proto> and then
+// handles incoming requests following the beam protocol.
 func (srv *Server) ListenAndServe(proto, addr string) error {
 
 }
