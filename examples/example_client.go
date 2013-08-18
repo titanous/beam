@@ -28,8 +28,8 @@ func RunClient() error {
 
 	// Use case 2: run a job and get streams from it
 	job := client.Job("exec", "/bin/echo", "hello", "world")
-	os.Stdout = job.Streams.Open("stdout", O_RDONLY)
-	os.Stderr = job.Streams.Open("stderr", O_RDONLY)
+	os.Stdout = job.Streams.OpenRead("stdout")
+	os.Stderr = job.Streams.OpenRead("stderr")
 	if err := job.Create(); err != nil {
 		return err
 	}
