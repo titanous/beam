@@ -49,4 +49,5 @@ func JobExec(name string, args []string, env map[string]string, streams beam.Str
 	p.Stdin = streams.OpenRead("stdin")
 	p.Stdout = streams.OpenWrite("stdout")
 	p.Stderr = streams.OpenWrite("stderr")
+	return p.Run()
 }
