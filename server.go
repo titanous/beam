@@ -1,24 +1,16 @@
-// Beam is a protocol and library for service-oriented communication,
-// with an emphasis on real-world patterns, simplicity and not reinventing the wheel.
-//
-// See http://github.com/dotcloud/beam.
-//
-// github.com/dotcloud/beam/server is a server-side implementation of the Beam protocol.
-
-package client
+package beam
 
 import (
-	"github.com/dotcloud/beam"
+	"net"
 )
-
 
 type Server struct {
 }
 
 
-// New initializes a new beam server.
-func New() srv *Server {
-
+// NewServer initializes a new beam server.
+func NewServer() *Server {
+	return &Server{}
 }
 
 
@@ -28,7 +20,8 @@ func (srv *Server) RegisterJob(name string, h JobHandler) {
 }
 
 // ServeJob is the server's default job handler. It is called every time a new job is created.
-func (srv *Server) ServeJob(name string, args []string, env map[string]string, streams beam.Streamer, db beam.DB) error {
+func (srv *Server) ServeJob(name string, args []string, env map[string]string, streams Streamer, db DB) error {
+	return nil
 }
 
 // A JobHandler is a function which can be invoked as a job by beam clients.
@@ -42,17 +35,17 @@ func (srv *Server) ServeJob(name string, args []string, env map[string]string, s
 // Additionally, a job may modify the server's database, which is shared with all other jobs.
 // This is similar to how multiple unix processes share access to the same filesystem.
 //
-type JobHandler func(name string, args []string, env map[string]string, streams beam.Streamer, db beam.DB) error
+type JobHandler func(name string, args []string, env map[string]string, streams Streamer, db DB) error
 
 
 // ListenAndServe listens on the address <addr> at protocol <proto> and then
 // handles incoming requests following the beam protocol.
 func (srv *Server) ListenAndServe(proto, addr string) error {
-
+	return nil
 }
 
 // Serve accepts incoming Beam connections on the listener l, and then
 // serves requests on them.
 func (srv *Server) Serve(l net.Listener) error {
-
+	return nil
 }

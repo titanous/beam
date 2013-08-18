@@ -7,7 +7,7 @@
 // client and server implementations. It is typically not used directly by external
 // programs.
 
-package common
+package beam
 
 import (
 	_ "github.com/dotcloud/go-redis-server"
