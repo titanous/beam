@@ -2,26 +2,37 @@ package beam
 
 import (
 	"net"
+	"fmt"
 )
 
 type Server struct {
+	handlers map[string]JobHandler
 }
 
 
 // NewServer initializes a new beam server.
 func NewServer() *Server {
-	return &Server{}
+	return &Server{
+		handlers: make(map[string]JobHandler),
+	}
 }
 
 
 // RegisterJob exposes the function <h> as a remote job to be invoked by clients
 // under the name <name>.
 func (srv *Server) RegisterJob(name string, h JobHandler) {
+	srv.handlers[name] = h
 }
 
 // ServeJob is the server's default job handler. It is called every time a new job is created.
+// It looks up a handler registered at <name>, and calls it with the same arguments. If no handler
+// is registered, it returns an error.
 func (srv *Server) ServeJob(name string, args []string, env map[string]string, streams Streamer, db DB) error {
-	return nil
+	h, exists := srv.handlers[name]
+	if !exists {
+		return fmt.Errorf("No such job: %s", name)
+	}
+	return h(name, args, env, streams, db)
 }
 
 // A JobHandler is a function which can be invoked as a job by beam clients.
