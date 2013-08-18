@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/dotcloud/beam"
+	beamserver "github.com/dotcloud/beam/server"
+	beam "github.com/dotcloud/beam/common"
 	"os/exec"
 	"log"
 	"fmt"
@@ -14,7 +15,7 @@ func main() {
 }
 
 func RunServer() error {
-	srv := beam.NewServer()
+	srv := beamserver.New()
 	srv.RegisterJob("hello", JobHelloWorld)
 	srv.RegisterJob("exec", JobExec)
 	if err := srv.ListenAndServe("unix", "./beam.sock"); err != nil {
