@@ -43,23 +43,20 @@ Beam is a subset of the Redis protocol, and yes, every redis client is also a va
 Instead of the traditional (and obsolete) RPC metaphor, Beam exposes *jobs* using the familiar
 unix process API. And just like processes, *jobs* can produce and consume *streams*.
 
-## Specification
-
-
-### Underlying transport
+## Underlying transport
 
 Beam is a point-to-point protocol designed for structure communication over a reliable, bi-directional octet stream.
 TCP, Unix domain sockets and TLS sessions are all good transports.
 
 
-### Wire protocol
+## Wire protocol
 
 The beam protocol is a *strict subset* of the Redis wire protocol, with additional semantics. You could say it's the "ReST of Redis".
 In other words, all Beam commands are map to a sequence of 1 or more valid Redis commands, but not all Redis commands are valid Beam commands.
 
 For a reference of the Redis wire protocol, see http://redis.io/topics/protocol.
 
-### Reading and writing data
+## Reading and writing data
 
 Once a session is established by the underlying transport, a *context* is exposed to the client as a redis database. The full set of redis
 commands is available to read and write values on that context. Beam does not specify which keys must be accessible for read or write - that
@@ -72,7 +69,7 @@ Keys beginning with "/beam" are reserved for beam usage, and should not be used.
 
 
 
-### Data synchronization
+## Data synchronization
 
 A beam client can subscribe to a continuous feed of updates to the context data,
 in effect maintaining a local copy of the entire context database.
@@ -83,7 +80,7 @@ Synchronization is implemented using the SYNC redis command. This means that syn
 is available "for free" without extra work in the application, and without re-inventing the
 wheel in the Beam protocol.
 
-### Jobs
+## Jobs
 
 A Beam context is basically a redis database which can run jobs. A job is a mechanism for executing code remotely
 within the context of the context. The implementation of the job is entirely up to the context.
