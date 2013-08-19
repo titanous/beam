@@ -112,6 +112,49 @@ number indicates failure. Similar failure codes should indicate similar kinds of
 * Changes to context. Unlike rpc calls, beam jobs can't return arbitrary data. Instead,
 they have shared access to the context.
 
+### Creating a job
+
+Pseudo-code for creating a job from a client, using redis commands:
+
+```
+# Run the job ["exec", "ls", "-l", "/foobar"] with DEBUG=1 in the environment,
+# then stream the result.
+
+# Create a new job and get its id
+nJobs = RPUSH /jobs ls
+id = nJobs - 1
+
+# Set arguments
+RPUSH /jobs/$id/args ls -l /foobar
+
+# Set environment
+HSET /jobs/$id/env DEBUG 1
+
+# Start the job
+SET /jobs/$id ""
+
+# Send stdin on an input stream, then close it
+for line in readlines(stdin) {
+	RPUSH /jobs/$id/in "0:$line"
+}
+RPUSH /jobs/$id/in "0:"
+
+# Read output streams
+while true {
+	frame = BLPOP /jobs/$id/out
+	id, data = split(frame, ":")
+	if data == "" {
+		print "Stream $id is closed"
+	} else if id == "1" {
+		print(stdout, $data)
+	} else if id == "2" {
+		print(stderr, $data)
+	} else {
+		print "Received data on extra channel $id"
+	}
+}
+```
+
 
 ### Service addressing
 
